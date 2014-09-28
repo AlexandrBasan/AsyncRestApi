@@ -1,7 +1,12 @@
 module V1
   class JobsController < ApplicationController
     def index
-      render json: Job.all, status: 200
+      jobs = Job.all
+
+      if status = params[:status]
+        jobs = jobs.where(status: status)
+      end
+      render json: jobs, status: 200
     end
   end
 end
