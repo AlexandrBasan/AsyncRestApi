@@ -1,5 +1,4 @@
 require 'test_helper'
-require 'minitest/pride'
 
 class ListJobsTest < ActionDispatch::IntegrationTest
   setup do
@@ -7,8 +6,8 @@ class ListJobsTest < ActionDispatch::IntegrationTest
     Job.create!(name: 'Make into avatar', algorithm: 'resize')
   end
 
-  test "list all jobs" do
-    get '/jobs'
+  test 'list all jobs' do
+    get '/v1/jobs'
 
     assert_equal 200, response.status
     assert_equal Mime::JSON, response.content_type
