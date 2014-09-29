@@ -13,7 +13,7 @@ class ListJobsTest < ActionDispatch::IntegrationTest
     assert_equal 200, response.status
     assert_equal Mime::JSON, response.content_type
 
-    assert_equal Job.count, JSON.parse(response.body).length
+    assert_equal Job.count, json(response.body).length
   end
 
   test 'list only queue jobs' do
@@ -22,6 +22,6 @@ class ListJobsTest < ActionDispatch::IntegrationTest
     assert_equal 200, response.status
     assert_equal Mime::JSON, response.content_type
 
-    assert_equal 2, JSON.parse(response.body).length
+    assert_equal 2, json(response.body).length
   end
 end

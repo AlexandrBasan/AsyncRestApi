@@ -9,6 +9,11 @@ class ActiveSupport::TestCase
   # API subdomain
   setup { host! 'api.exmaple.com' }
 
+  # Parse JSON
+  def json(body)
+    JSON.parse(body, symbolize_names: true)
+  end
+
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests

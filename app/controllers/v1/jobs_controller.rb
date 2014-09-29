@@ -8,5 +8,18 @@ module V1
       end
       render json: jobs, status: 200
     end
+
+
+    def create
+      job = Job.new(job_params)
+      if job.save
+        render json: job, status: 202, location: ['v1', job]
+      end
+    end
+
+  private
+    def job_params
+      params.require(:job).permit(:name, :algorithm)
+    end
   end
 end
