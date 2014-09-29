@@ -9,7 +9,6 @@ module V1
       render json: jobs, status: 200
     end
 
-
     def create
       job = Job.new(job_params)
       if job.save
@@ -18,6 +17,7 @@ module V1
     end
 
   private
+
     def job_params
       params.require(:job).permit(:name, :algorithm)
     end
