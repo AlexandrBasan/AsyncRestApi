@@ -13,5 +13,7 @@ class CreateJobsTest < ActionDispatch::IntegrationTest
     
     job = json(response.body)
     assert_equal v1_job_url(job[:id]), response.location
+    assert_equal 'Normalized box blur filtering', job[:name]
+    assert_equal 'blur', job[:algorithm]
   end
 end
