@@ -13,6 +13,8 @@ module V1
       job = Job.new(job_params)
       if job.save
         render json: job, status: 202, location: ['v1', job]
+      else
+        render json: job.errors, status: 422
       end
     end
 

@@ -16,4 +16,14 @@ class CreateJobsTest < ActionDispatch::IntegrationTest
     assert_equal 'Normalized box blur filtering', job[:name]
     assert_equal 'blur', job[:algorithm]
   end
+
+  test 'does not create invalid job' do
+    post '/v1/jobs',
+      { job:
+        { name: nil, algorithm: 'blur' }
+      }.to_json,
+      { 'Accept' => Mime::JSON, 'Content-Type' => Mime::JSON.to_s }
+
+    assert_equal 422, response.status
+  end
 end
