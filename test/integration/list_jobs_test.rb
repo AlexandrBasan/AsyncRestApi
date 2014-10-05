@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ListJobsTest < ActionDispatch::IntegrationTest
   setup do
-    Job.create!(name: 'Check for face', algorithm: 'facial recognition', status: 'completed')
+    @job = Job.create!(name: 'Check for face', algorithm: 'facial recognition', status: 'completed')
     Job.create!(name: 'Make into avatar', algorithm: 'resize', status: 'queued')
     Job.create!(name: 'Invert image', algorithm: 'invert', status: 'queued')
   end
@@ -26,14 +26,21 @@ class ListJobsTest < ActionDispatch::IntegrationTest
   end
 
   test 'list single job' do
-    get '/v1/jobs/1'
+    get "/v1/jobs/#{@job.id}"
 
     assert_equal 200, response.status
     assert_equal Mime::JSON, response.content_type
 
     job = json(response.body)
-    assert_equal 'facial recognition', job[:algorithm]
-    assert_equal 'Check for face', job[:name]
-    assert_equal 'completed', job[:status]
+    assert_equal @job.algorithm, job[:algorithm]
+    assert_equal @job.name, job[:name]
+    assert_equal @job.status, job[:status]
+  end
+
+  test 'handle job not found' do
+    get '/v1/jobs/1234'
+
+    assert_equal 404, response.status
+    assert_equal 'not-found', json(response.body)[:error]
   end
 end

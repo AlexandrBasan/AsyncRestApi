@@ -10,9 +10,10 @@ module V1
     end
 
     def show
-      if job = Job.find(params[:id])
+      begin
+        job = Job.find(params[:id])
         render json: job, status: 200
-      else
+      rescue
         render json: {error: 'not-found'}.to_json, status: 404
       end
     end
