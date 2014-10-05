@@ -16,12 +16,24 @@ class ListJobsTest < ActionDispatch::IntegrationTest
     assert_equal Job.count, json(response.body).length
   end
 
-  test 'list only queue jobs' do
+  test 'list only queued jobs' do
     get '/v1/jobs?status=queued'
 
     assert_equal 200, response.status
     assert_equal Mime::JSON, response.content_type
 
     assert_equal 2, json(response.body).length
+  end
+
+  test 'list single job' do
+    get '/v1/jobs/1'
+
+    assert_equal 200, response.status
+    assert_equal Mime::JSON, response.content_type
+
+    job = json(response.body)
+    assert_equal 'facial recognition', job[:algorithm]
+    assert_equal 'Check for face', job[:name]
+    assert_equal 'completed', job[:status]
   end
 end
