@@ -1,28 +1,6 @@
-== README
+# Asynchronous RESTful API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is just a little Rails app for playing with asynchronous REST calls. This is useful for when a client makes API calls and the responses take longer than a normal HTTP response time.
+For instance, a scenario where this could be applicable is for image processing.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Make a `post` request to the jobs resource. The job enqueues and response with a 202, poll till the job status is finished.
