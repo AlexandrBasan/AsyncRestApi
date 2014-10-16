@@ -21,6 +21,7 @@ module V1
     def create
       job = Job.new(job_params)
       if job.save
+        LongWorker.perform_async(job.id)
         render json: job, status: 202, location: ['v1', job]
       else
         render json: job.errors, status: 422
