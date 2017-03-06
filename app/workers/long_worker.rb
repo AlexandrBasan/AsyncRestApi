@@ -3,7 +3,7 @@ class LongWorker
 
   def perform(job_id)
     job = Job.find(job_id)
-    job.update(status: "processing"
+    job.update(status: "processing")
     puts "Working..."
     # Simulate a job that may take a long time to process
     # e.g. Image Processing, hmm...
